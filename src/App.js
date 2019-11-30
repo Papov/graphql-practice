@@ -1,21 +1,27 @@
 // @flow
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
-const s = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+import {Api} from 'core';
+
+import * as SCREEN from './components';
+
+const MainNavigator = createStackNavigator(
+  {
+    auth: {screen: SCREEN.Auth},
+    home: {screen: SCREEN.Home},
   },
-});
+  {
+    initialRouteName: 'auth',
+    headerMode: 'none',
+  },
+);
 
 function App() {
-  return (
-    <View style={s.container}>
-      <Text>Work</Text>
-    </View>
-  );
+  return Api.createClient({
+    component: createAppContainer(MainNavigator),
+  });
 }
 
 export default App;
