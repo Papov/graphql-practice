@@ -3,25 +3,63 @@ import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-import {Api} from 'core';
+import * as SCREENS from './components';
 
-import * as SCREEN from './components';
+// create custom navigation
+function createNavigation({navigation}) {
+  return {
+    ...navigation.state.params,
+    navBack: () => navigation.navBack(),
+    navTo: (screen: string, params: any) => navigation.navigate(screen, params),
+  };
+}
 
-const MainNavigator = createStackNavigator(
+const AuthContainer = createStackNavigator(
   {
-    auth: {screen: SCREEN.Auth},
-    home: {screen: SCREEN.Home},
+    welcome: {
+      screen: props => <SCREENS.Welcome {...createNavigation(props)} />,
+    },
+    auth: {
+      screen: props => <SCREENS.Auth {...createNavigation(props)} />,
+    },
   },
   {
-    initialRouteName: 'auth',
+    initialRouteName: 'welcome',
     headerMode: 'none',
   },
 );
 
-function App() {
-  return Api.createClient({
-    component: createAppContainer(MainNavigator),
-  });
-}
+const RickMorty = createStackNavigator({
+  episodes: {
+    screen: props => (
+      <SCREENS.RickMorty.Episodes {...createNavigation(props)} />
+    ),
+  },
+});
+
+const Marvel = createStackNavigator(
+  {
+    home: {
+      screen: props => <SCREENS.Marvel.Home {...createNavigation(props)} />,
+    },
+  },
+  {
+    headerMode: 'none',
+  },
+);
+
+const MainNavigator = createStackNavigator(
+  {
+    welcome: AuthContainer,
+    rickMorty: RickMorty,
+    marvel: Marvel,
+  },
+  {
+    initialRouteName: 'welcome',
+    headerMode: 'none',
+  },
+);
+
+const App = createAppContainer(MainNavigator);
 
 export default App;
