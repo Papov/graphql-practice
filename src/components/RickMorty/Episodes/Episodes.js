@@ -1,7 +1,7 @@
 // @flow
-import React from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {View, ActivityIndicator, FlatList} from 'react-native';
-import {ListItem} from 'react-native-elements';
+import {ListItem, Text} from 'react-native-elements';
 
 import {Query} from 'react-apollo';
 
@@ -10,16 +10,28 @@ import {Api} from 'core';
 
 function Episodes(props) {
   const query = Api.makeRequest('episodes', undefined, [
-    'id',
-    'name',
-    'air_date',
-    'episode',
-    'created',
+    {results: ['id', 'name', 'air_date', 'episode']},
+    {info: ['count', 'pages']},
   ]);
+
+  useEffect(() => {
+    props.setParams({title: 'Episodes'});
+  }, []);
+
+  function goToEpisode(element: any) {
+    props.navTo('episode', {
+      id: element.id,
+      episode: element.episode,
+      client: props.client,
+    });
+  }
 
   function renderItem(element: Object, index: number) {
     return (
       <ListItem
+        onPress={() => {
+          goToEpisode(element);
+        }}
         key={index}
         title={element.name}
         subtitle={element.air_date}
@@ -33,7 +45,11 @@ function Episodes(props) {
     <Query query={query} client={props.client}>
       {({data, error, loading}) => {
         if (error) {
-          return null;
+          return (
+            <View style={styles.container}>
+              <Text h4>Something went wrong!</Text>
+            </View>
+          );
         }
         if (loading) {
           return (
@@ -54,4 +70,4 @@ function Episodes(props) {
   );
 }
 
-export default Episodes;
+export default props => useMemo(() => <Episodes {...props} />, []);

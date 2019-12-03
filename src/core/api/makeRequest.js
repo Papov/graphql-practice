@@ -16,9 +16,7 @@ export default function makeRequest(
   return gql`
     query {
       ${resource}${_query ? `(${_query})` : ''} {
-        results {
-          ${_results}
-        }
+        ${_results}
       }
     }
   `;

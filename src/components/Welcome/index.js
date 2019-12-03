@@ -7,7 +7,7 @@ import {Text, Button} from 'react-native-elements';
 import {styles} from 'utils';
 
 const s = StyleSheet.create({
-  button: {marginBottom: 8},
+  button: {marginTop: 8, width: 300},
 });
 
 function Welcome(props) {
@@ -17,16 +17,14 @@ function Welcome(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={s.button} h3>
-        Applications
-      </Text>
+      <Text h3>Applications</Text>
       <Button
-        style={s.button}
+        containerStyle={s.button}
         title="Rick and Morty"
         onPress={() => goToAuth('rickMorty')}
       />
       <Button
-        style={s.button}
+        containerStyle={s.button}
         title="Marvel"
         onPress={() => goToAuth('marvel')}
       />

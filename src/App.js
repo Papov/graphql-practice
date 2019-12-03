@@ -11,6 +11,7 @@ function createNavigation({navigation}) {
     ...navigation.state.params,
     navBack: () => navigation.navBack(),
     navTo: (screen: string, params: any) => navigation.navigate(screen, params),
+    setParams: params => navigation.setParams(params),
   };
 }
 
@@ -26,6 +27,9 @@ const AuthContainer = createStackNavigator(
   {
     initialRouteName: 'welcome',
     headerMode: 'none',
+    defaultNavigationOptions: {
+      gesturesEnabled: false,
+    },
   },
 );
 
@@ -34,6 +38,19 @@ const RickMorty = createStackNavigator({
     screen: props => (
       <SCREENS.RickMorty.Episodes {...createNavigation(props)} />
     ),
+    navigationOptions: ({navigation}) => {
+      return {
+        title: navigation.getParam('title'),
+      };
+    },
+  },
+  episode: {
+    screen: props => <SCREENS.RickMorty.Episode {...createNavigation(props)} />,
+    navigationOptions: ({navigation}) => {
+      return {
+        title: navigation.getParam('title'),
+      };
+    },
   },
 });
 
@@ -57,6 +74,9 @@ const MainNavigator = createStackNavigator(
   {
     initialRouteName: 'welcome',
     headerMode: 'none',
+    defaultNavigationOptions: {
+      gesturesEnabled: false,
+    },
   },
 );
 

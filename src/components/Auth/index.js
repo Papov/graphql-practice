@@ -48,11 +48,14 @@ function Auth(props) {
   }
 
   useEffect(() => {
+    if (!client && props.application === 'rickMorty') {
+      authorise(true);
+    }
     if (client) {
       const application = props.application;
       props.navTo(application, {client});
     }
-  }, [client, props]);
+  }, [client]);
 
   return (
     <View style={[styles.container, s.container]}>
