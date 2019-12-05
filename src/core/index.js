@@ -1,3 +1,4 @@
 import * as Api from './api';
+import * as models from './models';
 
-export {Api};
+export {Api, models};

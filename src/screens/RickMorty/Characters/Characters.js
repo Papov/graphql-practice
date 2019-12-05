@@ -22,7 +22,7 @@ function Characters(props: Props) {
 
   return (
     <FlatList
-      data={props.characters}
+      data={props.characters || []}
       renderItem={({item, index}) => renderItem(item, index)}
     />
   );

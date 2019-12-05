@@ -76,17 +76,11 @@ function Auth(props) {
         onChangeText={setPassword}
       />
       <View style={s.buttonGroup}>
-        <Button containerStyle={s.button} title="sign in" />
-        <Button containerStyle={s.button} title="sign up" />
+        <Button onPress={authorise} containerStyle={s.button} title="sign in" />
+        <Button onPress={authorise} containerStyle={s.button} title="sign up" />
       </View>
       <View style={s.skipContainer}>
-        <Button
-          onPress={() => {
-            authorise(true);
-          }}
-          buttonStyle={s.skipButton}
-          title="skip"
-        />
+        <Button onPress={authorise} buttonStyle={s.skipButton} title="skip" />
       </View>
     </View>
   );

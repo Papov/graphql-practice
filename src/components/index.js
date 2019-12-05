@@ -1,7 +1,3 @@
-import * as RickMorty from './RickMorty';
-import * as Marvel from './Marvel';
-
-export {RickMorty, Marvel};
-
-export {default as Auth} from './Auth';
-export {default as Welcome} from './Welcome';
+export {default as Loading} from './Loading';
+export {default as Error} from './Error';
+export {default as Header} from './Header';

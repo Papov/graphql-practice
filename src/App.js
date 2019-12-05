@@ -1,9 +1,11 @@
 // @flow
 import React from 'react';
+import {StatusBar} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-import * as SCREENS from './components';
+import * as SCREENS from './screens';
+import {styles} from 'utils';
 
 // create custom navigation
 function createNavigation({navigation}) {
@@ -11,7 +13,6 @@ function createNavigation({navigation}) {
     ...navigation.state.params,
     navBack: () => navigation.navBack(),
     navTo: (screen: string, params: any) => navigation.navigate(screen, params),
-    setParams: params => navigation.setParams(params),
   };
 }
 
@@ -33,26 +34,23 @@ const AuthContainer = createStackNavigator(
   },
 );
 
-const RickMorty = createStackNavigator({
-  episodes: {
-    screen: props => (
-      <SCREENS.RickMorty.Episodes {...createNavigation(props)} />
-    ),
-    navigationOptions: ({navigation}) => {
-      return {
-        title: navigation.getParam('title'),
-      };
+const RickMorty = createStackNavigator(
+  {
+    episodes: {
+      screen: props => (
+        <SCREENS.RickMorty.Episodes {...createNavigation(props)} />
+      ),
+    },
+    episode: {
+      screen: props => (
+        <SCREENS.RickMorty.Episode {...createNavigation(props)} />
+      ),
     },
   },
-  episode: {
-    screen: props => <SCREENS.RickMorty.Episode {...createNavigation(props)} />,
-    navigationOptions: ({navigation}) => {
-      return {
-        title: navigation.getParam('title'),
-      };
-    },
+  {
+    headerMode: 'none',
   },
-});
+);
 
 const Marvel = createStackNavigator(
   {

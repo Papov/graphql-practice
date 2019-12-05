@@ -30,6 +30,7 @@
   "devDependencies": {
     "utils": "file:./src/utils",
     "core": "file:./src/core",
+    "components": "file:./src/components",
     "@babel/cli": "^7.7.4",
     "@babel/core": "7.7.2",
     "@babel/preset-flow": "^7.7.4",
