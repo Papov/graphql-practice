@@ -17,4 +17,7 @@ export default StyleSheet.create({
     width: '100%',
     flex: 1,
   },
+  separator: {
+    height: 8,
+  },
 });

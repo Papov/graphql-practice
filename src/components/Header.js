@@ -21,7 +21,7 @@ type Props = {|
 |};
 
 function HeaderComponent(props: Props) {
-  const {color, title = {}, back, backgroundColor, home} = props;
+  const {color, title = '', back, backgroundColor, home} = props;
 
   function renderLeftAction() {
     if (!back) {
@@ -61,7 +61,7 @@ function HeaderComponent(props: Props) {
       leftComponent={renderLeftAction()}
       rightComponent={renderRightAction()}
       centerComponent={
-        title.text ? (
+        title ? (
           <Text style={[s.title, title.style || {}]}>
             {title.text || title}
           </Text>

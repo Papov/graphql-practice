@@ -75,7 +75,7 @@ function Episodes(props) {
         }
         return (
           <>
-            <Header title="Episodes" home />
+            <Header title="Episodes" color="light-content" home />
             <FlatList
               data={data.episodes.results}
               renderItem={({item, index}) => renderItem(item, index)}
