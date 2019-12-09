@@ -15,48 +15,59 @@ const s = StyleSheet.create({
 type Props = {|
   back?: () => any,
   home?: () => any,
-  title?: string,
+  title?: string | {text: string, style: Object},
   color?: 'light-content' | 'dark-content',
   backgroundColor?: string,
 |};
 
 function HeaderComponent(props: Props) {
+  const {color, title = {}, back, backgroundColor, home} = props;
+
   function renderLeftAction() {
-    if (!props.back) {
+    if (!back) {
       return null;
     }
     return (
       <TouchableOpacity
         hitSlop={hitSlop}
-        disabled={!props.back}
+        disabled={!back}
         onPress={() => props.navigation.goBack()}>
-        <Icon name="chevron-left" size={24} color={colors.white} />
+        <Icon
+          name="chevron-left"
+          size={24}
+          color={back.color || colors.white}
+        />
       </TouchableOpacity>
     );
   }
 
   function renderRightAction() {
-    if (!props.home) {
+    if (!home) {
       return null;
     }
     return (
       <TouchableOpacity
         hitSlop={hitSlop}
-        disabled={!props.home}
+        disabled={!home}
         onPress={() => props.navigation.navigate('welcome')}>
-        <Icon name="home" size={24} color={colors.white} />
+        <Icon name="home" size={24} color={home.color || colors.white} />
       </TouchableOpacity>
     );
   }
   return (
     <Header
+      barStyle={color || 'default'}
       pointerEvents="none"
       leftComponent={renderLeftAction()}
       rightComponent={renderRightAction()}
       centerComponent={
-        props.title ? <Text style={s.title}>{props.title}</Text> : null
+        title.text ? (
+          <Text style={[s.title, title.style || {}]}>
+            {title.text || title}
+          </Text>
+        ) : null
       }
-      backgroundColor={props.backgroundColor || colors.header}
+      backgroundColor={backgroundColor || colors.header}
     />
   );
 }
