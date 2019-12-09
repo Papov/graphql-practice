@@ -1,13 +1,27 @@
 // @flow
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 
-import {Text, Button} from 'react-native-elements';
-
-import {styles} from 'utils';
+import {styles, colors} from 'utils';
+import {Button} from 'components';
+import {images} from 'resources';
 
 const s = StyleSheet.create({
-  button: {marginTop: 8, width: 300},
+  container: {
+    flex: 1,
+    width: '100%',
+  },
+  button: {
+    width: 200,
+    alignItems: 'center',
+    backgroundColor: colors.white,
+  },
+  background: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    flex: 1,
+  },
 });
 
 function Welcome(props) {
@@ -16,18 +30,29 @@ function Welcome(props) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text h3>Applications</Text>
-      <Button
-        containerStyle={s.button}
-        title="Rick and Morty"
-        onPress={() => goToAuth('rickMorty')}
-      />
-      <Button
-        containerStyle={s.button}
-        title="Marvel"
-        onPress={() => goToAuth('marvel')}
-      />
+    <View style={[styles.container, s.container]}>
+      <ImageBackground
+        resizeMode="cover"
+        style={s.background}
+        source={images.rickMortyWelcome}>
+        <Button
+          position="center"
+          title="Rick and Morty"
+          onPress={() => goToAuth('rickMorty')}
+          style={s.button}
+        />
+      </ImageBackground>
+      <ImageBackground
+        resizeMode="cover"
+        style={s.background}
+        source={images.marvelWelcome}>
+        <Button
+          position="center"
+          title="Marvel"
+          onPress={() => goToAuth('marvel')}
+          style={s.button}
+        />
+      </ImageBackground>
     </View>
   );
 }

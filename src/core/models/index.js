@@ -16,7 +16,7 @@ export type Episodes = {
   |},
 };
 
-type CharactersItem = {|
+export type CharactersItem = {|
   name: string,
   id: string,
   image: string,

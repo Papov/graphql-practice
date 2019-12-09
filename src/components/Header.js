@@ -9,12 +9,12 @@ import {colors} from 'utils';
 const hitSlop = {left: 10, right: 10, top: 10, bottom: 10};
 
 const s = StyleSheet.create({
-  title: {fontSize: 24, color: colors.white},
+  title: {fontSize: 20, color: colors.white},
 });
 
 type Props = {|
   back?: () => any,
-  menu?: () => any,
+  home?: () => any,
   title?: string,
   color?: 'light-content' | 'dark-content',
   backgroundColor?: string,
@@ -36,22 +36,21 @@ function HeaderComponent(props: Props) {
   }
 
   function renderRightAction() {
-    if (!props.menu) {
+    if (!props.home) {
       return null;
     }
     return (
       <TouchableOpacity
         hitSlop={hitSlop}
-        disabled={!props.menu}
-        // TODO add menu
-        onPress={() => props.menu}>
-        <Icon name="bars" size={24} color={colors.white} />
+        disabled={!props.home}
+        onPress={() => props.navigation.navigate('welcome')}>
+        <Icon name="home" size={24} color={colors.white} />
       </TouchableOpacity>
     );
   }
   return (
     <Header
-      barStyle={props.color || 'default'}
+      pointerEvents="none"
       leftComponent={renderLeftAction()}
       rightComponent={renderRightAction()}
       centerComponent={

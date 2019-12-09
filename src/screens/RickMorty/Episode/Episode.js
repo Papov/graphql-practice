@@ -34,7 +34,7 @@ function Episode(props: Props) {
         }
         return (
           <View style={s.container}>
-            <Header back title={data.episode.name} color="light-content" menu />
+            <Header back title={data.episode.name} home />
             <Characters characters={data.episode.characters} />
           </View>
         );

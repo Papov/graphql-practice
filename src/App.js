@@ -1,11 +1,9 @@
 // @flow
 import React from 'react';
-import {StatusBar} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import * as SCREENS from './screens';
-import {styles} from 'utils';
 
 // create custom navigation
 function createNavigation({navigation}) {

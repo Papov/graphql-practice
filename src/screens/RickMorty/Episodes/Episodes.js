@@ -5,8 +5,8 @@ import {Query} from 'react-apollo';
 
 import {ListItem} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Loading, Error, Header} from 'components';
 
+import {Loading, Error, Header} from 'components';
 import {Api} from 'core';
 import {models} from 'core';
 import {colors} from 'utils';
@@ -75,7 +75,7 @@ function Episodes(props) {
         }
         return (
           <>
-            <Header title="Episodes" color="light-content" menu />
+            <Header title="Episodes" home />
             <FlatList
               data={data.episodes.results}
               renderItem={({item, index}) => renderItem(item, index)}

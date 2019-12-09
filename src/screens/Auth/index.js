@@ -1,36 +1,40 @@
 // @flow
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
-
-import {Button, Input, Text} from 'react-native-elements';
+import {View, StyleSheet, Image} from 'react-native';
 
 import {Api} from 'core';
 import {styles, colors} from 'utils';
+import {Button} from 'components';
+import {images} from 'resources';
 
 const s = StyleSheet.create({
   container: {padding: 8},
-  buttonGroup: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  button: {flex: 1, margin: 8},
-  roundButton: {
-    alignSelf: 'flex-start',
-  },
+  button: {marginBottom: 4},
   textInput: {padding: 0, margin: 0, color: colors.fontDark},
-  skipContainer: {
+  image: {
+    position: 'absolute',
+    height: '35%',
+    top: 0,
     width: '100%',
+    resizeMode: 'contain',
   },
-  skipButton: {
-    marginHorizontal: 8,
+  rickMortyText: {
+    color: colors.fontDark,
+  },
+  marvelText: {
+    color: colors.white,
+    fontWeight: '500',
+  },
+  rickMortyBG: {
+    backgroundColor: colors.rickBG,
+  },
+  marvelBG: {
+    backgroundColor: colors.marvelBG,
   },
 });
 
 function Auth(props) {
   const [client, setClient] = useState(null);
-  const [email, setMail] = useState('');
-  const [password, setPassword] = useState('');
 
   function authorise(isSkip: boolean) {
     const application = props.application;
@@ -48,40 +52,44 @@ function Auth(props) {
   }
 
   useEffect(() => {
-    if (!client && props.application === 'rickMorty') {
-      authorise(true);
-    }
     if (client) {
       const application = props.application;
       props.navTo(application, {client});
     }
   }, [client]);
 
+  function renderImage() {
+    const image = `${props.application}Auth`;
+    if (!image) {
+      return null;
+    }
+    return <Image source={images[image]} style={s.image} />;
+  }
+
+  const buttonBG = s[`${props.application}BG`];
+  const textColor = s[`${props.application}Text`];
+
   return (
     <View style={[styles.container, s.container]}>
-      <Text h4>Authorization</Text>
-      <Input
-        style={s.textInput}
-        placeholder="email@address.com"
-        placeholderTextColor={colors.gray}
-        value={email}
-        onChangeText={setMail}
+      {renderImage()}
+      <Button
+        position="top"
+        onPress={authorise}
+        style={[s.button, buttonBG]}
+        title={{text: 'sign in', style: textColor}}
       />
-      <Input
-        style={s.textInput}
-        placeholder="password"
-        textContentType="newPassword"
-        placeholderTextColor={colors.gray}
-        value={password}
-        onChangeText={setPassword}
+      <Button
+        onPress={authorise}
+        style={[s.button, buttonBG]}
+        color={colors.white}
+        title={{text: 'sign up', style: textColor}}
       />
-      <View style={s.buttonGroup}>
-        <Button onPress={authorise} containerStyle={s.button} title="sign in" />
-        <Button onPress={authorise} containerStyle={s.button} title="sign up" />
-      </View>
-      <View style={s.skipContainer}>
-        <Button onPress={authorise} buttonStyle={s.skipButton} title="skip" />
-      </View>
+      <Button
+        position="bottom"
+        onPress={authorise}
+        style={[s.button, buttonBG]}
+        title={{text: 'skip', style: textColor}}
+      />
     </View>
   );
 }
